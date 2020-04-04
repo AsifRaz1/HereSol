@@ -27,6 +27,7 @@ public class FindingTheInnerLinksOfDocumentSec {
 	static String parentWindow = "";
 	static WebDriver driver;
 	
+	
 	@Given("Application is launched in the Chrome browser")
 	public void browserAndApplicationLaunch() throws InterruptedException {
 		WebDriverManager.chromedriver().setup();
@@ -52,7 +53,8 @@ public class FindingTheInnerLinksOfDocumentSec {
 	
 	
 	//Code for testing each links
-	public static void testEachLinkURL(String URLLinks) throws IOException {
+	public static void testEachLinkURL(String URLLinks) {
+		try {
 		URL linkURL = new URL(URLLinks);
 		HttpURLConnection con = (HttpURLConnection)linkURL.openConnection();
 		con.setConnectTimeout(3000);
@@ -62,6 +64,10 @@ public class FindingTheInnerLinksOfDocumentSec {
 		}
 		else {
 			System.out.println(URLLinks+": "+"Fail");
+		}
+		}
+		catch(Exception e) {
+			System.out.println("URL exceptions");
 		}
 	}
 	
@@ -87,8 +93,8 @@ public class FindingTheInnerLinksOfDocumentSec {
 		    }
 
   //Final code for checking all the links and angular load
-   @Then("Validate the valid links and validate the AngularJs load of the pages")
-   public static void navigateAndCheckLinks(WebDriver driver) throws IOException {
+  @Then("Validate the valid links and Validate the AngularJs load of the pages")
+   public static void navigateAndCheckLinks() throws IOException {
 	   for(int i =0; i<listOflIst.size();i++) {
 		   WebElement ele = listOflIst.get(i);
 			String url=ele.getAttribute("href");
